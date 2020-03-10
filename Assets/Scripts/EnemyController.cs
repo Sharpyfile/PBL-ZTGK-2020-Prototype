@@ -15,6 +15,7 @@ public class EnemyController : Character
     private float fieldOfView;
     [SerializeField]
     private float neighbourDistance;
+    private GameObject[] otherEnemies;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,32 @@ public class EnemyController : Character
     // Update is called once per frame
     void Update()
     {
+        otherEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         //rigidbody.velocity = speed * 
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Weapon")
+        {
+            if (other.gameObject.GetComponentInParent<Character>())
+            {
+                GetHit(other.gameObject.GetComponentInParent<Character>().Damage);
+            }
+        }
+    }
+
+    void GetHit(float dmg)
+    {
+        base.GetHit(dmg);
+        CheckIfAlive();
+    }
+
+    void CheckIfAlive()
+    {
+        if (Health <= 0)
+        {
+            GameObject.Destroy(this.gameObject);
+        }
     }
 }

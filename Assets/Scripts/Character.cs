@@ -25,5 +25,8 @@ public class Character : MonoBehaviour
         
     }
 
-    
+    protected void GetHit(float dmg)
+    {
+        health -= dmg;
+    }
 }
