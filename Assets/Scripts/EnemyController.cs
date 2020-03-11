@@ -17,9 +17,16 @@ public class EnemyController : Character
     private float neighbourDistance;
     private GameObject[] otherEnemies;
     // Start is called before the first frame update
+
+    private MeshRenderer ren;
+
+    private Animator anim;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        ren = GetComponentInChildren<MeshRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,9 +40,10 @@ public class EnemyController : Character
     {
         if (other.gameObject.tag == "Weapon")
         {
-            if (other.gameObject.GetComponentInParent<Character>())
+            Debug.Log("HIT");
+            if (other.gameObject.GetComponentInParent<Attack>())
             {
-                GetHit(other.gameObject.GetComponentInParent<Character>().Damage);
+                GetHit(other.gameObject.GetComponentInParent<Attack>().Damage);
             }
         }
     }
@@ -52,5 +60,15 @@ public class EnemyController : Character
         {
             GameObject.Destroy(this.gameObject);
         }
+    }
+
+    public void TurnEnemyRed()
+    {
+        ren.sharedMaterial.color = Color.red;
+    }
+
+    public void TurnEnemyWhite()
+    {
+        ren.sharedMaterial.color = Color.green;
     }
 }
