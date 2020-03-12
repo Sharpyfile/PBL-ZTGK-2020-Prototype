@@ -393,7 +393,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 927fd4871746354438d83f401061084b, type: 2}
+  - {fileID: 2100000, guid: 4e5465e11bcbdf24d80200b878d0cd0f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -604,11 +604,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7952080003466772287, guid: 0513075b7eebeae4cbc85f13cfd265eb,
+        type: 3}
+      propertyPath: basicMovementSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7952080003466772287, guid: 0513075b7eebeae4cbc85f13cfd265eb,
+        type: 3}
+      propertyPath: finalMovementSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7619235189753493347, guid: 0513075b7eebeae4cbc85f13cfd265eb,
         type: 3}
       propertyPath: hpSlider
       value: 
       objectReference: {fileID: 1455276733}
+    - target: {fileID: 956622221, guid: 0513075b7eebeae4cbc85f13cfd265eb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.36606124
+      objectReference: {fileID: 0}
+    - target: {fileID: 956622221, guid: 0513075b7eebeae4cbc85f13cfd265eb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.39297846
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0513075b7eebeae4cbc85f13cfd265eb, type: 3}
 --- !u!1 &1102175597
@@ -722,6 +740,7 @@ GameObject:
   - component: {fileID: 1400612183}
   - component: {fileID: 1400612184}
   - component: {fileID: 1400612185}
+  - component: {fileID: 1400612186}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -776,11 +795,15 @@ MonoBehaviour:
   maxHealth: 100
   damage: 1
   health: 0
+  rigidbody: {fileID: 0}
   speed: 1
   velocityX: 0
   velocityY: 0
   fieldOfView: 0
   neighbourDistance: 0
+  otherEnemies: []
+  ren: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!95 &1400612185
 Animator:
   serializedVersion: 3
@@ -800,6 +823,26 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1400612186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400612181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2991eea1a0f540f4b97e4dfd6111d635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  damage: 1
+  health: 100
+  speed: 1
+  velocityX: 0
+  velocityY: 0
+  fieldOfView: 0
+  neighbourDistance: 0
 --- !u!224 &1455276732 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1217150598850255159, guid: da2ea8e34f1d01e409580e1626acbbc7,

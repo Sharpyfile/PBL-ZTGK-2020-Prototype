@@ -40,7 +40,6 @@ public class EnemyController : Character
     {
         if (other.gameObject.tag == "Weapon")
         {
-            Debug.Log("HIT");
             if (other.gameObject.GetComponentInParent<Attack>())
             {
                 GetHit(other.gameObject.GetComponentInParent<Attack>().Damage);
@@ -51,6 +50,7 @@ public class EnemyController : Character
     void GetHit(float dmg)
     {
         base.GetHit(dmg);
+        Debug.Log("Ouch! health left " + Health);
         CheckIfAlive();
     }
 
