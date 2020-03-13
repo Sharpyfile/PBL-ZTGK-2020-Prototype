@@ -619,6 +619,11 @@ PrefabInstance:
       propertyPath: hpSlider
       value: 
       objectReference: {fileID: 1455276733}
+    - target: {fileID: 7619235189753493347, guid: 0513075b7eebeae4cbc85f13cfd265eb,
+        type: 3}
+      propertyPath: maxHp
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 956622221, guid: 0513075b7eebeae4cbc85f13cfd265eb, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.36606124
@@ -743,7 +748,7 @@ GameObject:
   - component: {fileID: 1400612186}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -792,18 +797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab555b42d7573fa45b1e86016aacb1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  damage: 1
-  health: 0
-  rigidbody: {fileID: 0}
-  speed: 1
-  velocityX: 0
-  velocityY: 0
-  fieldOfView: 0
-  neighbourDistance: 0
-  otherEnemies: []
-  ren: {fileID: 0}
-  anim: {fileID: 0}
 --- !u!95 &1400612185
 Animator:
   serializedVersion: 3
@@ -837,7 +830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage: 1
-  health: 100
+  health: 100000
   speed: 1
   velocityX: 0
   velocityY: 0

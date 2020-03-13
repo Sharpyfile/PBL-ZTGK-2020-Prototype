@@ -43,6 +43,10 @@ public class EnemyController : Character
             if (other.gameObject.GetComponentInParent<Attack>())
             {
                 GetHit(other.gameObject.GetComponentInParent<Attack>().Damage);
+                Vector3 forceDir = (transform.position - other.transform.position).normalized;
+                forceDir.y = 0f;
+                Debug.Log("wektor sily " + forceDir * 10f);
+                rigidbody.AddForce(forceDir * 10f, ForceMode.Impulse);
             }
         }
     }
@@ -50,7 +54,6 @@ public class EnemyController : Character
     void GetHit(float dmg)
     {
         base.GetHit(dmg);
-        Debug.Log("Ouch! health left " + Health);
         CheckIfAlive();
     }
 
