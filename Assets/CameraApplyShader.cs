@@ -34,11 +34,11 @@ public class CameraApplyShader : MonoBehaviour
             Graphics.Blit(source, destination);
             return;
         }
-        if (player.pickup.name == "SpeedPill")
+        if (player.pickup.GetComponent<PickupStatistics>().pillName == "SpeedPill")
         {
             Graphics.Blit(source, destination, material2);
         }
-        else if (player.pickup.name == "SlowPill")
+        else if (player.pickup.GetComponent<PickupStatistics>().pillName == "SlowPill")
         {
             material1.SetFloat("_bwBlend", 0.9f);
             Graphics.Blit(source, destination, material1);
