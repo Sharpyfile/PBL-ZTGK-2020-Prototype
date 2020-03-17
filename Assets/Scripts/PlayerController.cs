@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerInput;
     public GameObject pickup;
     private float timeStamp;
+    private Camera cam;
 
     void Start()
     {
+        cam = Camera.main;
         playerRigidbody = GetComponent<Rigidbody>();
     }
 
@@ -22,7 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         playerRigidbody.velocity = playerInput * finalMovementSpeed;
-
+        Rotate();
         if (pickup != null)
         {
             HasPickup(); //Contains all functions that are done when player has pickup
@@ -45,7 +47,6 @@ public class PlayerController : MonoBehaviour
         if (timeStamp > Time.time)
         {
             finalMovementSpeed = basicMovementSpeed * pickup.GetComponent<PickupStatistics>().speedModifier;
-            Debug.Log("Pickup affecting speed" + (timeStamp - Time.time).ToString());
         }          
         
         if (timeStamp < Time.time)
@@ -63,4 +64,25 @@ public class PlayerController : MonoBehaviour
         StatisticsChangeByPickup();
     }
 
+    private void Rotate()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 5;
+        Vector3 target = Camera.main.ScreenToWorldPoint(mousePos);
+
+        float rotSpeed = 360f;
+
+        // distance between target and the actual rotating object
+        Vector3 D = target - transform.position;
+
+
+        // calculate the Quaternion for the rotation
+        Quaternion rot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(D), rotSpeed * Time.deltaTime);
+
+        //Apply the rotation 
+        transform.rotation = rot;
+
+        // put 0 on the axys you do not want for the rotation object to rotate
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+    }
 }
