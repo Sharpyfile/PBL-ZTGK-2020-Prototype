@@ -66,11 +66,11 @@ public class EnemyController : Character
 
     public void TurnEnemyRed()
     {
-        ren.sharedMaterial.color = Color.red;
+        ren.material.color = Color.red;
     }
 
     public void TurnEnemyWhite()
     {
-        ren.sharedMaterial.color = Color.green;
+        ren.material.color = Color.green;
     }
 }
