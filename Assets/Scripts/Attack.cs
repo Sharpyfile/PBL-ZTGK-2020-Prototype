@@ -18,6 +18,15 @@ public class Attack : MonoBehaviour
     private Slider hpSlider;
 
     private bool canAttackAgain = true;
+    private bool attackPressed = false;
+    private bool strongAttackEnabled = false;
+
+    private float attackPressedTime;
+    [SerializeField]
+    private float timeForStrongAttack = 2.0f;
+
+    [SerializeField]
+    private MeshRenderer weaponMeshRen;
 
     public float Damage { get => damage; }
 
@@ -63,8 +72,22 @@ public class Attack : MonoBehaviour
     {
         if (Input.GetButtonDown("Attack") && canAttackAgain)
         {
+            attackPressed = true;
+            attackPressedTime = Time.time;
+        }
+
+        if (attackPressed && Time.time - attackPressedTime >= timeForStrongAttack)
+        {
+            weaponMeshRen.material.color = Color.red;
+            attackPressed = false;
+        }
+
+        if (Input.GetButtonUp("Attack"))
+        {
             anim.SetTrigger("attack");
             canAttackAgain = false;
+            attackPressed = false;
+            weaponMeshRen.material.color = Color.white;
         }
     }
 
