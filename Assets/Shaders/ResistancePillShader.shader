@@ -1,11 +1,8 @@
-﻿Shader "Hidden/PillTwo"
+﻿Shader "Hidden/ResistancePillShader"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-		_Columns("Pixel Columns", Float) = 64
-		_Rows("Pixel Rows", Float) = 64
-
     }
     SubShader
     {
@@ -40,22 +37,13 @@
                 return o;
             }
 
-
-			float _Columns;
-			float _Rows;
             sampler2D _MainTex;
 
             fixed4 frag (v2f i) : SV_Target
             {
-				float2 uv = i.uv;
-				uv.x *= _Columns;
-				uv.y *= _Rows;
-				uv.x = round(uv.x);
-				uv.y = round(uv.y);
-				uv.x /= _Columns;
-				uv.y /= _Rows;
-
-                fixed4 col = tex2D(_MainTex, uv);
+                fixed4 col = tex2D(_MainTex, i.uv);
+                // just invert the colors
+                col.rgb = 1 - col.rgb;
                 return col;
             }
             ENDCG

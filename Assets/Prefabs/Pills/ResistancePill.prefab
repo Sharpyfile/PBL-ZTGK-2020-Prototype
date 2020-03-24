@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5267823381454512276}
   - component: {fileID: 5267823381454512283}
   m_Layer: 0
-  m_Name: SpeedPill
+  m_Name: ResistancePill
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0c9c23590b1b80642bb4e18954901a24, type: 2}
+  - {fileID: 2100000, guid: 49fda1b16ec08a047a865384e3cbc248, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationTime: 3
-  speedModifier: 2
-  damageModifier: 1
-  enemyDamageModifier: 2
+  speedModifier: 1
+  damageModifier: 0.8
+  enemyDamageModifier: 0.5
   healthBonus: 0
-  pillName: SpeedPill
+  pillName: ResistancePill

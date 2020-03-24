@@ -1,4 +1,4 @@
-﻿Shader "Hidden/PillOne" {
+﻿Shader "Hidden/SlowPillShader" {
 	Properties{
 	_MainTex("Base (RGB)", 2D) = "white" {}
 	_bwBlend("Black & White blend", Range(0, 1)) = 0

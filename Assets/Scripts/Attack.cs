@@ -16,6 +16,13 @@ public class Attack : MonoBehaviour
 
     private float currentDamage;
 
+    [HideInInspector]
+    public float damageModifier = 1.0f;
+    [HideInInspector]
+    public float enemyDamageModifier = 1.0f;
+    [HideInInspector]
+    public bool wasHealthModified = false;
+
     private Animator anim;
 
     [SerializeField]
@@ -80,7 +87,7 @@ public class Attack : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         CurrentHp = maxHp;
-        currentDamage = damage;
+        currentDamage = damage * damageModifier;
         recentAttacks = new AttackType[3];
         recentAttacks[0] = AttackType.NONE;
         recentAttacks[1] = AttackType.NONE;
@@ -98,8 +105,9 @@ public class Attack : MonoBehaviour
 
     public void GetHit(float dmg)
     {
-        CurrentHp -= dmg;
-
+        Debug.Log(dmg * enemyDamageModifier);
+        CurrentHp -= dmg * enemyDamageModifier;
+        
         if (CurrentHp < 0)
         {
             CurrentHp = 0;
@@ -250,7 +258,7 @@ public class Attack : MonoBehaviour
             && ((recentAttacks[1] == AttackType.RIGHT_WEAK && recentAttacks[2] == AttackType.LEFT_WEAK) 
             || (recentAttacks[1] == AttackType.LEFT_WEAK && recentAttacks[2] == AttackType.RIGHT_WEAK)))
         {
-            currentDamage = 1000f;
+            currentDamage = 1000.0f;
             anim.ResetTrigger("attackL");
             anim.ResetTrigger("attackR");
             anim.SetTrigger("twist");
@@ -263,6 +271,8 @@ public class Attack : MonoBehaviour
 
     private void AttackNow(AttackType type)
     {
+        currentDamage *= damageModifier;
+        Debug.Log("Current damage: " + currentDamage.ToString());
         lastAttack = type;
         attackTimeStamp = Time.time;
     }
@@ -270,5 +280,14 @@ public class Attack : MonoBehaviour
     public void AttackConnected()
     {
         PushRecentAttack(lastAttack);
+    }
+
+    public void ChangeHealthValue(float value)
+    {
+        if (!wasHealthModified)
+        {
+            CurrentHp += value;
+            wasHealthModified = true;
+        }
     }
 }

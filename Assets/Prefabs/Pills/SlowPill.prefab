@@ -107,4 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationTime: 3
   speedModifier: 0.5
+  damageModifier: 1
+  enemyDamageModifier: 0.5
+  healthBonus: 0
   pillName: SlowPill

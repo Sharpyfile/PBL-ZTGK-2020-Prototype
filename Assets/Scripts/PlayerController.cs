@@ -54,11 +54,17 @@ public class PlayerController : MonoBehaviour
         if (timeStamp > Time.time)
         {
             finalMovementSpeed = basicMovementSpeed * pickup.GetComponent<PickupStatistics>().speedModifier;
+            attackScript.damageModifier = pickup.GetComponent<PickupStatistics>().damageModifier;
+            attackScript.ChangeHealthValue(pickup.GetComponent<PickupStatistics>().healthBonus);
+            attackScript.enemyDamageModifier = pickup.GetComponent<PickupStatistics>().enemyDamageModifier;
         }          
         
         if (timeStamp < Time.time)
         {
             finalMovementSpeed = basicMovementSpeed;
+            attackScript.damageModifier = 1.0f;
+            attackScript.enemyDamageModifier = 1.0f;
+            attackScript.wasHealthModified = false;
             Destroy(pickup.gameObject);
             pickup = null;
         }         

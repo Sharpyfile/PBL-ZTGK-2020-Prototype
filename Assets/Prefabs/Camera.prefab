@@ -111,3 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9490b895c8de67e4ea0eb94dd3de8dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  intensity: 0.1
+  smoothDistort: 0.1
+  interval: 0.1
+  pl: {fileID: 0}
