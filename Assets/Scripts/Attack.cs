@@ -55,12 +55,37 @@ public class Attack : MonoBehaviour
         }
     }
 
+    public enum AttackType
+    {
+        NONE,
+        LEFT_WEAK,
+        LEFT_STRONG,
+        RIGHT_WEAK,
+        RIGHT_STRONG,
+        BOTH_STRONG
+    }
+
+    private AttackType[] recentAttacks;
+    private AttackType lastAttack = AttackType.NONE;
+
+    private float attackTimeStamp = 0f;
+
+    public float AttackTimeStamp { get => attackTimeStamp; }
+
+    [SerializeField]
+    private float timeForCombo = 2.0f;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         CurrentHp = maxHp;
         currentDamage = damage;
+        recentAttacks = new AttackType[3];
+        recentAttacks[0] = AttackType.NONE;
+        recentAttacks[1] = AttackType.NONE;
+        recentAttacks[2] = AttackType.NONE;
+        StartCoroutine(ClearRecentAttacks());
     }
 
     // Update is called once per frame
@@ -68,16 +93,16 @@ public class Attack : MonoBehaviour
     {
         AttackInputR();
         AttackInputL();
+        CheckForCombo();
     }
 
-    void GetHit(float dmg)
+    public void GetHit(float dmg)
     {
         CurrentHp -= dmg;
 
         if (CurrentHp < 0)
         {
             CurrentHp = 0;
-            Debug.Log("Dead");
         }
     }
 
@@ -106,6 +131,7 @@ public class Attack : MonoBehaviour
 
                 currentDamage = strongDamage;
                 anim.SetTrigger("attackBoth");
+                AttackNow(AttackType.BOTH_STRONG);
                 canAttackAgainR = false;
                 attackPressedR = false;
                 weaponMeshRenR.material.color = Color.white;
@@ -115,7 +141,17 @@ public class Attack : MonoBehaviour
             }
             else
             {
-                currentDamage = attackLoadedR ? strongDamage : damage;
+                if (attackLoadedR)
+                {
+                    currentDamage = strongDamage;
+                    AttackNow(AttackType.RIGHT_STRONG);
+                }
+                else
+                {
+                    currentDamage = damage;
+                    AttackNow(AttackType.RIGHT_WEAK);
+                }
+
                 anim.SetTrigger("attackR");
                 canAttackAgainR = false;
                 attackPressedR = false;
@@ -144,7 +180,17 @@ public class Attack : MonoBehaviour
         {
             if (!cancelAttackL)
             {
-                currentDamage = attackLoadedL ? strongDamage : damage;
+                if (attackLoadedL)
+                {
+                    currentDamage = strongDamage;
+                    AttackNow(AttackType.LEFT_STRONG);
+                }
+                else
+                {
+                    currentDamage = damage;
+                    AttackNow(AttackType.LEFT_WEAK);
+                }
+
                 anim.SetTrigger("attackL");
                 canAttackAgainL = false;
                 attackPressedL = false;
@@ -166,11 +212,63 @@ public class Attack : MonoBehaviour
         canAttackAgainL = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void PushRecentAttack( AttackType type )
     {
-        if (other.tag == "EnemyWeapon")
+        recentAttacks[0] = recentAttacks[1];
+        recentAttacks[1] = recentAttacks[2];
+        recentAttacks[2] = type;
+
+        Debug.Log("Recents: " + recentAttacks[0].ToString() + " | "
+            + recentAttacks[1].ToString() + " | "
+            + recentAttacks[2].ToString());
+    }
+
+    private IEnumerator ClearRecentAttacks()
+    {
+        while(true)
         {
-            GetHit(other.GetComponentInParent<EnemyController>().Damage);
+            if (recentAttacks[0] != AttackType.NONE)
+            {
+                recentAttacks[0] = AttackType.NONE;
+            }
+            else if (recentAttacks[1] != AttackType.NONE)
+            {
+                recentAttacks[1] = AttackType.NONE;
+            }
+            else if (recentAttacks[2] != AttackType.NONE)
+            {
+                recentAttacks[2] = AttackType.NONE;
+            }
+
+            yield return new WaitForSecondsRealtime(timeForCombo);
         }
+    }
+
+    private void CheckForCombo()
+    {
+        if ((recentAttacks[0] == AttackType.RIGHT_STRONG || recentAttacks[0] == AttackType.LEFT_STRONG)
+            && ((recentAttacks[1] == AttackType.RIGHT_WEAK && recentAttacks[2] == AttackType.LEFT_WEAK) 
+            || (recentAttacks[1] == AttackType.LEFT_WEAK && recentAttacks[2] == AttackType.RIGHT_WEAK)))
+        {
+            currentDamage = 1000f;
+            anim.ResetTrigger("attackL");
+            anim.ResetTrigger("attackR");
+            anim.SetTrigger("twist");
+            AttackNow(AttackType.NONE);
+            recentAttacks[0] = AttackType.NONE;
+            recentAttacks[1] = AttackType.NONE;
+            recentAttacks[2] = AttackType.NONE;
+        }
+    }
+
+    private void AttackNow(AttackType type)
+    {
+        lastAttack = type;
+        attackTimeStamp = Time.time;
+    }
+
+    public void AttackConnected()
+    {
+        PushRecentAttack(lastAttack);
     }
 }

@@ -22,6 +22,8 @@ public class EnemyController : Character
 
     private Animator anim;
 
+    private float attackTimeStamp = 0f;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -40,9 +42,13 @@ public class EnemyController : Character
     {
         if (other.gameObject.tag == "Weapon")
         {
-            if (other.gameObject.GetComponentInParent<Attack>())
+            Attack attackScript = other.gameObject.GetComponentInParent<Attack>();
+            if (attackScript && attackScript.AttackTimeStamp != attackTimeStamp)
             {
-                GetHit(other.gameObject.GetComponentInParent<Attack>().Damage);
+                GetHit(attackScript.Damage);
+                attackScript.AttackConnected();
+                Debug.Log("DAMAGE " + attackScript.Damage);
+                attackTimeStamp = attackScript.AttackTimeStamp;
                 Vector3 forceDir = (transform.position - other.transform.position).normalized;
                 forceDir.y = 0f;
                 rigidbody.AddForce(forceDir * 10f, ForceMode.Impulse);

@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     public GameObject pickup;
     private float timeStamp;
     private Camera cam;
+    private Attack attackScript;
 
     void Start()
     {
         cam = Camera.main;
         playerRigidbody = GetComponent<Rigidbody>();
+        attackScript = GetComponentInChildren<Attack>();
     }
 
     // Update is called once per frame
@@ -39,7 +41,12 @@ public class PlayerController : MonoBehaviour
             pickup = other.gameObject;
             timeStamp = Time.time + pickup.GetComponent<PickupStatistics>().durationTime;
             Debug.Log(timeStamp);
-        }            
+        }
+
+        if (other.tag == "EnemyWeapon")
+        {
+            attackScript.GetHit(other.GetComponentInParent<EnemyController>().Damage);
+        }
     }
     
     private void StatisticsChangeByPickup() //Changes statistics of the player
