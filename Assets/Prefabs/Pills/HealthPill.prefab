@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8e610c1f9a5e34fb8b974490b6edb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  durationTime: 10
+  durationTime: 3
   speedModifier: 0.8
   damageModifier: 0
   enemyDamageModifier: 0
-  healthBonus: 25
+  healthBonus: 50
   pillName: HealthPill

@@ -167,8 +167,8 @@ public class EnemyController : Character
         transform.rotation = Quaternion.Slerp(transform.rotation,
                                                Quaternion.LookRotation(player.position - transform.position),
                                                rotationSpeed * Time.deltaTime);
-        rigidbody.velocity += transform.forward * speed * Time.deltaTime;
 
+        rigidbody.velocity += transform.forward * speed * Time.deltaTime;
     }
 
     private void BeInTheMiddle()
