@@ -26,5 +26,7 @@ public class SceneController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.R))
             SceneManager.LoadScene("SampleSceneStrongAttack");
 
+        if (Input.GetKeyUp(KeyCode.Escape))
+            Application.Quit();
     }
 }
