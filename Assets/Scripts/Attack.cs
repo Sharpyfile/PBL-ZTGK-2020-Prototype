@@ -13,6 +13,8 @@ public class Attack : MonoBehaviour
     private float damage;
     [SerializeField]
     private float strongDamage;
+    [SerializeField]
+    private float comboDamage;
 
     private float currentDamage;
 
@@ -258,7 +260,7 @@ public class Attack : MonoBehaviour
             && ((recentAttacks[1] == AttackType.RIGHT_WEAK && recentAttacks[2] == AttackType.LEFT_WEAK) 
             || (recentAttacks[1] == AttackType.LEFT_WEAK && recentAttacks[2] == AttackType.RIGHT_WEAK)))
         {
-            currentDamage = 1000.0f;
+            currentDamage = comboDamage;
             anim.ResetTrigger("attackL");
             anim.ResetTrigger("attackR");
             anim.SetTrigger("twist");

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645251, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.5645232, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -25484,6 +25484,15 @@ PrefabInstance:
         type: 3}
       propertyPath: strongDamage
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473773893960431352, guid: 58fe0d441df4a8648bd9c6f30de67c19,
+        type: 3}
+      propertyPath: comboDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 103520061, guid: 58fe0d441df4a8648bd9c6f30de67c19, type: 3}
+      propertyPath: m_TagString
+      value: ComboWeapon
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7819537644417271086, guid: 58fe0d441df4a8648bd9c6f30de67c19, type: 3}

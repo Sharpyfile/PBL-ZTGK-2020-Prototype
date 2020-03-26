@@ -82,11 +82,21 @@ public class EnemyController : Character
             {
                 GetHit(attackScript.Damage);
                 attackScript.AttackConnected();
+                attackTimeStamp = attackScript.AttackTimeStamp;
+            }
+        }
+        else if (other.gameObject.tag == "ComboWeapon")
+        {
+            Attack attackScript = other.gameObject.GetComponentInParent<Attack>();
+            if (attackScript && attackScript.AttackTimeStamp != attackTimeStamp)
+            {
+                GetHit(attackScript.Damage);
+                attackScript.AttackConnected();
                 Debug.Log("DAMAGE " + attackScript.Damage);
                 attackTimeStamp = attackScript.AttackTimeStamp;
                 Vector3 forceDir = (transform.position - other.transform.position).normalized;
                 forceDir.y = 0f;
-                rigidbody.AddForce(forceDir * 10f, ForceMode.Impulse);
+                rigidbody.AddForce(forceDir * 20f, ForceMode.Impulse);
             }
         }
     }
