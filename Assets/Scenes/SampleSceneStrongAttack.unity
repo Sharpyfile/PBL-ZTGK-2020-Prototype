@@ -1380,7 +1380,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh14284
+  m_Name: pb_Mesh15162
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19341,7 +19341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PolyMesh:
-    name: pb_Mesh14284
+    name: pb_Mesh15162
     vertices:
     - {x: 0, y: 0, z: 0}
     - {x: 0, y: 0, z: 25}
@@ -25470,6 +25470,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2006380141406878821, guid: 58fe0d441df4a8648bd9c6f30de67c19,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.351
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006380141119106221, guid: 58fe0d441df4a8648bd9c6f30de67c19,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.351
+      objectReference: {fileID: 0}
     - target: {fileID: 3473773893960431352, guid: 58fe0d441df4a8648bd9c6f30de67c19,
         type: 3}
       propertyPath: hpSlider
@@ -25489,6 +25499,11 @@ PrefabInstance:
         type: 3}
       propertyPath: comboDamage
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473773893960431352, guid: 58fe0d441df4a8648bd9c6f30de67c19,
+        type: 3}
+      propertyPath: maxHp
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 103520061, guid: 58fe0d441df4a8648bd9c6f30de67c19, type: 3}
       propertyPath: m_TagString

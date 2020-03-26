@@ -31,6 +31,7 @@ public class EnemyController : Character
 
     private Animator anim;
 
+    private static float staticAttackTimeStamp = 0f;
     private float attackTimeStamp = 0f;
 
     void Start()
@@ -78,11 +79,19 @@ public class EnemyController : Character
         if (other.gameObject.tag == "Weapon")
         {
             Attack attackScript = other.gameObject.GetComponentInParent<Attack>();
-            if (attackScript && attackScript.AttackTimeStamp != attackTimeStamp)
+            if (attackScript)
             {
-                GetHit(attackScript.Damage);
-                attackScript.AttackConnected();
-                attackTimeStamp = attackScript.AttackTimeStamp;
+                if (attackScript.AttackTimeStamp != attackTimeStamp)
+                {
+                    GetHit(attackScript.Damage);
+                    attackTimeStamp = attackScript.AttackTimeStamp;
+                }
+
+                if (attackScript.AttackTimeStamp != staticAttackTimeStamp)
+                {
+                    attackScript.AttackConnected();
+                    staticAttackTimeStamp = attackScript.AttackTimeStamp;
+                }
             }
         }
         else if (other.gameObject.tag == "ComboWeapon")
