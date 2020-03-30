@@ -34,12 +34,18 @@ public class EnemyController : Character
     private static float staticAttackTimeStamp = 0f;
     private float attackTimeStamp = 0f;
 
+    [SerializeField]
+    private AudioClip[] hitSounds;
+
+    private AudioSource src;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         ren = GetComponentInChildren<MeshRenderer>();
         anim = GetComponent<Animator>();
         neighbours = new List<GameObject>();
+        src = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -112,6 +118,8 @@ public class EnemyController : Character
 
     void GetHit(float dmg)
     {
+        src.clip = hitSounds[Random.Range(0, hitSounds.Length)];
+        src.Play();
         base.GetHit(dmg);
         CheckIfAlive();
     }
