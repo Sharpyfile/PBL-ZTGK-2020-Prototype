@@ -38,6 +38,8 @@ public class Attack : MonoBehaviour
     private bool attackLoadedL = false;
     private bool cancelAttackL = false;
 
+    public bool performedAttack = false;
+
     private float attackPressedTimeR;
     private float attackPressedTimeL;
     [SerializeField]
@@ -133,6 +135,7 @@ public class Attack : MonoBehaviour
 
         if (Input.GetButtonUp("AttackR"))
         {
+            performedAttack = true;
             if (attackLoadedR && attackLoadedL)
             {
                 attackLoadedL = false;
@@ -188,6 +191,7 @@ public class Attack : MonoBehaviour
 
         if (Input.GetButtonUp("AttackL"))
         {
+            performedAttack = true;
             if (!cancelAttackL)
             {
                 if (attackLoadedL)
